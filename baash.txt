@@ -1,0 +1,95 @@
+for mac/linux sh deply.sh works for wi
+windows in git bash use bash deploy.sh
+
+ABHILASH REDDY@AbhilashReddy MINGW64 ~/projects/kubernetes-demo (main)
+$ npm run deploy
+
+> kubernetes-demo@1.0.0 deploy
+> bash deploy.sh
+
+Building Docker image...
+[+] Building 31.2s (11/11) FINISHED                                                                             docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                            0.1s
+ => => transferring dockerfile: 335B                                                                                            0.0s
+ => [internal] load metadata for docker.io/library/node:20-alpine                                                               3.2s
+ => [auth] library/node:pull token for registry-1.docker.io                                                                     0.0s
+ => [internal] load .dockerignore                                                                                               0.1s
+ => => transferring context: 112B                                                                                               0.0s
+ => [1/5] FROM docker.io/library/node:20-alpine@sha256:16858294071a56ffd4cce9f17b57136cc39e41507b40e245b4f8e906f7a19463         0.1s
+ => => resolve docker.io/library/node:20-alpine@sha256:16858294071a56ffd4cce9f17b57136cc39e41507b40e245b4f8e906f7a19463         0.1s
+ => [internal] load build context                                                                                               0.1s
+ => => transferring context: 9.18kB                                                                                             0.1s
+ => CACHED [2/5] WORKDIR /app                                                                                                   0.0s
+ => [3/5] COPY package*.json ./                                                                                                 0.1s
+ => [4/5] RUN npm ci --omit=dev                                                                                                10.9s
+ => [5/5] COPY . .                                                                                                              1.3s
+ => exporting to image                                                                                                         14.7s
+ => => exporting layers                                                                                                         7.0s
+ => => exporting manifest sha256:73e31d1305e107211b5142be3787cbe9d053374a1abffce39af186cb2a4dd359                               0.1s
+ => => exporting config sha256:5a3ff2599b373f7bef773d6eee4fdf342c87b87b40db33f5ba2dd049bbdcac21                                 0.1s
+ => => exporting attestation manifest sha256:48d99b58e3a3dde04bcabc1f564c4fdb898b9e563ac5a1738e57d222b0a9ba34                   0.1s
+ => => exporting manifest list sha256:60d452552ede23ef7f94feb4dd41d3d4ba84b641d21ae7ed05c1c7472505434e                          0.1s
+ => => naming to docker.io/abhilashreddy15519/kubernetes-demo-api:latest                                                        0.0s 
+ => => unpacking to docker.io/abhilashreddy15519/kubernetes-demo-api:latest                                                     7.1s 
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/s4rb2wbb3y1epmvxrfj7s7ccb
+Pushing Docker image to Docker Hub...
+The push refers to repository [docker.io/abhilashreddy15519/kubernetes-demo-api]
+537c6f956080: Layer already exists
+d4cda882e05a: Layer already exists
+e374fbd54307: Layer already exists
+c539617780da: Pushed
+2d35ebdb57d9: Layer already exists
+90931bc3f3e0: Pushed
+446528b55c41: Pushed
+cf028fb22061: Pushed
+d31fb19c9d76: Layer already exists
+latest: digest: sha256:60d452552ede23ef7f94feb4dd41d3d4ba84b641d21ae7ed05c1c7472505434e size: 856
+Deployment script completed.
+Applying Kubernetes configurations...
+deployment.apps/kubernetes-demo-api created
+service/kubernetes-demo-api-service created
+Kubernetes configurations applied.
+Getting the status of pods...
+NAME                                   READY   STATUS              RESTARTS   AGE
+kubernetes-demo-api-79bd9cfcb5-5txzg   0/1     ContainerCreating   0          3s
+kubernetes-demo-api-79bd9cfcb5-crcbm   0/1     ContainerCreating   0          3s
+Getting the status of services...
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes                    ClusterIP   10.96.0.1       <none>        443/TCP          3m18s
+kubernetes-demo-api-service   NodePort    10.107.247.34   <none>        3000:31484/TCP   2s
+fetching the main service details...
+NAME                          TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes-demo-api-service   NodePort   10.107.247.34   <none>        3000:31484/TCP   2s
+
+ABHILASH REDDY@AbhilashReddy MINGW64 ~/projects/kubernetes-demo (main)
+$
+
+
+
+ABHILASH REDDY@AbhilashReddy MINGW64 ~/projects/kubernetes-demo (main)
+$ kubectl get pods
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-demo-api-79bd9cfcb5-5txzg   1/1     Running   0          6m2s
+kubernetes-demo-api-79bd9cfcb5-crcbm   1/1     Running   0          6m2s
+
+ABHILASH REDDY@AbhilashReddy MINGW64 ~/projects/kubernetes-demo (main)
+$ minikube service kubernetes-demo-api-service
+┌───────────┬─────────────────────────────┬─────────────┬───────────────────────────┐
+│ NAMESPACE │            NAME             │ TARGET PORT │            URL            │
+├───────────┼─────────────────────────────┼─────────────┼───────────────────────────┤
+│ default   │ kubernetes-demo-api-service │ 3000        │ http://192.168.49.2:31484 │
+└───────────┴─────────────────────────────┴─────────────┴───────────────────────────┘
+🏃  Starting tunnel for service kubernetes-demo-api-service./┌───────────┬─────────────────────────────┬─────────────┬────────────────────────┐
+│ NAMESPACE │            NAME             │ TARGET PORT │          URL           │
+├───────────┼─────────────────────────────┼─────────────┼────────────────────────┤
+│ default   │ kubernetes-demo-api-service │             │ http://127.0.0.1:58861 │
+└───────────┴─────────────────────────────┴─────────────┴────────────────────────┘
+🏃  Starting tunnel for service kubernetes-demo-api-service.
+🎉  Opening service default/kubernetes-demo-api-service in default browser...
+❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+
+
+before running minikube service kubernetes-demo-api-service
+
+check if pods running or not 0/1 not running or 1/1 running
