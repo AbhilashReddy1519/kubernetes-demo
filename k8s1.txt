@@ -1,0 +1,36 @@
+npw start minikube
+
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> minikube start
+😄  minikube v1.37.0 on Microsoft Windows 11 Home Single Language 10.0.26220.7271 Build 26220.7271
+✨  Automatically selected the docker driver
+📌  Using Docker Desktop driver with root privileges
+👍  Starting "minikube" primary control-plane node in "minikube" cluster
+🚜  Pulling base image v0.0.48 ...
+💾  Downloading Kubernetes v1.34.0 preload ...
+    > preloaded-images-k8s-v18-v1...:  337.07 MiB / 337.07 MiB  100.00% 2.20 Mi
+    > gcr.io/k8s-minikube/kicbase...:  488.52 MiB / 488.52 MiB  100.00% 2.64 Mi
+🔥  Creating docker container (CPUs=2, Memory=3072MB) ... 
+❗  Failing to connect to https://registry.k8s.io/ from inside the minikube container
+💡  To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+🐳  Preparing Kubernetes v1.34.0 on Docker 28.4.0 ... 
+🔗  Configuring bridge CNI (Container Networking Interface) ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+💡  kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+
+run 
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> kubectl get nodes
+NAME       STATUS   ROLES           AGE    VERSION
+minikube   Ready    control-plane   100s   v1.34.0
+
+to see cluster Running do
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> kubectl cluster-info
+Kubernetes control plane is running at https://127.0.0.1:61644
+CoreDNS is running at https://127.0.0.1:61644/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+if we run kubectl directly without running minikube we don't see anything because minicube is a tool sets up a local k8s cluster on a laptop

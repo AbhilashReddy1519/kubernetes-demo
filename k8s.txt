@@ -1,0 +1,117 @@
+k8s install using curl
+
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> curl.exe -LO "https://dl.k8s.io/release/v1.34.0/bin/windows/amd64/kubectl.exe"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   138  100   138    0     0     96      0  0:00:01  0:00:01 --:--:--    97
+100 59.2M  100 59.2M    0     0  7190k      0  0:00:08  0:00:08 --:--:-- 9299k
+
+from documentation and 
+
+init npm 
+
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> npm init -y
+Wrote to C:\Users\ABHILASH REDDY\projects\kubernetes-demo\package.json:
+
+{
+  "name": "kubernetes-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbhilashReddy1519/kubernetes-demo.git"        
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AbhilashReddy1519/kubernetes-demo/issues"
+  },
+  "homepage": "https://github.com/AbhilashReddy1519/kubernetes-demo#readme"      
+}
+
+
+also install minikube which is 
+
+minikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes.
+
+All you need is Docker (or similarly compatible) container or a Virtual Machine environment, and Kubernetes is a single command away: minikube start
+
+
+after complete setup change package.json add code in index.js 
+
+now add docker setup
+
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> docker compose up --build
+services.environment must be a mapping
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo>
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo>
+ docker compose up --build
+unable to get image 'kubernetes-demo-api': error during connect: Get "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.51/images/kubernetes-demo-api/json": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo>
+ docker compose up --build
+[+] Building 35.6s (13/13) FINISHED
+ => [internal] load local bake definitions     0.0s
+ => => reading from stdin 562B                 0.0s
+ => [internal] load build definition from Doc  0.2s
+ => => transferring dockerfile: 335B           0.1s 
+ => [internal] load metadata for docker.io/li  5.8s
+ => [auth] library/node:pull token for regist  0.0s
+ => [internal] load .dockerignore              0.2s
+ => => transferring context: 112B              0.0s 
+ => [1/5] FROM docker.io/library/node:20-alpi  0.1s
+ => => resolve docker.io/library/node:20-alpi  0.1s
+ => [internal] load build context              6.6s 
+ => => transferring context: 62.18MB           6.4s 
+ => CACHED [2/5] WORKDIR /app                  0.0s 
+ => [3/5] COPY package*.json ./                0.6s 
+ => [4/5] RUN npm ci --omit=dev                8.4s 
+ => [5/5] COPY . .                             0.8s 
+ => exporting to image                        11.1s 
+ => => exporting layers                        6.9s 
+ => => exporting manifest sha256:638809cf7630  0.1s 
+ => => exporting config sha256:20a8306da85f89  0.1s 
+ => => exporting attestation manifest sha256:  0.1s 
+ => => exporting manifest list sha256:595f5c7  0.1s 
+ => => naming to docker.io/library/kubernetes  0.1s 
+ => => unpacking to docker.io/library/kuberne  3.5s 
+ => resolving provenance for metadata file     0.1s 
+[+] Running 3/3
+ ✔ kubernetes-demo-api              Built      0.0s 
+ ✔ Network kubernetes-demo_default  Created    0.2s 
+ ✔ Container node-api               Created    1.1s 
+Attaching to node-api
+node-api  |
+-demo@1.0.0 dev
+node-api  | > node --watch index.js
+node-api  |
+node-api  | Example app listening on port 3000
+
+
+v View in Docker Desktop   o View Config   w Enable Watch
+
+
+and push docker
+
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> docker tag kubernetes-demo:latest abhilashreddy15519/kubernetes-demo-api:latest
+Error response from daemon: No such image: kubernetes-demo:latest
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> docker tag kubernetes-demo-api:latest a
+bhilashreddy15519/kubernetes-demo-api:latest  
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> docker push a
+Using default tag: latest
+The push refers to repository [docker.io/library/a]
+tag does not exist: a:latest
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo> docker push abhilashreddy15519/kubernet
+es-demo-api:latest
+0309f9e9fd5c: Pushed
+73b69a4ddf5d: Pushed
+5a338566e101: Pushed
+d4cda882e05a: Mounted from abhilashreddy15519/react-docker  Mounted from abhilashreddy15519/d31fb19c9d76: Mounted from abhilashreddy15519/latest: digest: sha256:595f5c794e9fb874f9190874bb82ea9108fd486371592c864119fb3702e622ba size: 856
+PS C:\Users\ABHILASH REDDY\projects\kubernetes-demo>
+
+now dockerization is done and here we need to setup k8s
